@@ -4,11 +4,11 @@ import 'package:weather_app/services/weather_model.dart';
 
 class WeatherService {
   Future<WeatherParameters> getWeather(String cityName) async {
-    // https://api.weatherapi.com/v1/current.json?key=f9879428e69f4903b97132941212412&q=London&aqi=no
+    // https://api.weatherapi.com/v1/current.json?key=[]&q=London&aqi=no
 
     final queryParameters = {
       'q': cityName,
-      'key': 'f9879428e69f4903b97132941212412',
+      'key': '',
       'aqi': 'yes'};
 
     final uri = Uri.https('api.weatherapi.com', '/v1/current.json', queryParameters);
