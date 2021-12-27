@@ -14,12 +14,14 @@ class _HomeState extends State<Home> {
   final _cityNameController = TextEditingController();
   final _weatherService = WeatherService();
   WeatherParameters _response = WeatherParameters();
+  Map data = {};
 
 
 
   void _search() async {
     final response = await _weatherService.getWeather(_cityNameController.text);
-    setState(() => _response = response);
+    Map _data = _weatherService.toMap(response);
+    setState(() => data = _data);
   }
 
   String generateIconURL(String? dataURL){
@@ -35,6 +37,8 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
 
 
+    data = data.isNotEmpty ? data : ModalRoute.of(context)!.settings.arguments as Map;
+    _response = _weatherService.fromMap(data);
 
     return Scaffold(
       backgroundColor: Colors.white,
@@ -60,6 +64,7 @@ class _HomeState extends State<Home> {
                           child: Padding(
                             padding: EdgeInsets.all(1),
                             child: TextField(
+                              textInputAction: TextInputAction.go,
                               style: TextStyle(
                                 fontSize: 22,
                                 fontWeight: FontWeight.w500,
@@ -89,6 +94,10 @@ class _HomeState extends State<Home> {
                     ]
                   ),
                   SizedBox(height: 40),
+
+                  // if(_response.cityName != null){
+                  //
+                  // };
                   Container(
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -318,7 +327,9 @@ class _HomeState extends State<Home> {
                       )
                   ),
                   FlatButton.icon(
-                      onPressed: () {},
+                      onPressed: () {
+                        _weatherService.saveCityName(_response.cityName);
+                      },
                       icon: Icon(
                         Icons.save_alt_sharp,
                         color: Colors.lightBlue[500],
@@ -331,8 +342,10 @@ class _HomeState extends State<Home> {
                       )
                   ),
                   FlatButton.icon(
-                      onPressed: () {
-                        dynamic result = Navigator.pushNamed(context, '/locations');
+                      onPressed: () async {
+                        // await _weatherService.deleteMyLocations();    // test
+                        List<String> locationsAndTemps = await _weatherService.locationsAndTemps();
+                        dynamic result = Navigator.pushNamed(context, '/locations', arguments: locationsAndTemps);
                       },
                       icon: Icon(
                         Icons.edit_location,
