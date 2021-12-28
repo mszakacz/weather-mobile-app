@@ -36,7 +36,6 @@ class WeatherParameters {
     this.uv
     });
 
-
   factory WeatherParameters.fromJson(Map < String, dynamic> data){
     final dataCurrent = data['current'];
     final dataLocation = data['location'];

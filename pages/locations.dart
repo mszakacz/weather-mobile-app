@@ -16,14 +16,11 @@ class _LocationsState extends State<Locations> {
   List<String> locations = ['Bialystok'];
   List<String> temperatures = ['-9'];
 
-
   void goHome(index) async {
     final response = await _weatherService.getWeather(locations[index]);
     Map data = _weatherService.toMap(response);
     Navigator.pushReplacementNamed(context, '/home', arguments: data);
   }
-
-
 
   @override
   Widget build(BuildContext context)  {
@@ -37,8 +34,6 @@ class _LocationsState extends State<Locations> {
     }
     print(locations);
     print(temperatures);
-
-
 
     return Scaffold(
       backgroundColor: Colors.grey[200],

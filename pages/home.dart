@@ -16,8 +16,6 @@ class _HomeState extends State<Home> {
   WeatherParameters _response = WeatherParameters();
   Map data = {};
 
-
-
   void _search() async {
     final response = await _weatherService.getWeather(_cityNameController.text);
     Map _data = _weatherService.toMap(response);
@@ -35,7 +33,6 @@ class _HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
-
 
     data = data.isNotEmpty ? data : ModalRoute.of(context)!.settings.arguments as Map;
     _response = _weatherService.fromMap(data);
@@ -87,17 +84,9 @@ class _HomeState extends State<Home> {
                             ),
                           ),
                         ),
-
-                      // ElevatedButton(
-                      //       onPressed: _search,
-                      //       child: Text('Search')),
                     ]
                   ),
                   SizedBox(height: 40),
-
-                  // if(_response.cityName != null){
-                  //
-                  // };
                   Container(
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -123,7 +112,6 @@ class _HomeState extends State<Home> {
                             )
                           ],
                         )
-
                       ],
                     ),
                   ),

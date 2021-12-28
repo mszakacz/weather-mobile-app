@@ -15,11 +15,8 @@ class WeatherService {
       'aqi': 'yes'};
 
     final uri = Uri.https('api.weatherapi.com', '/v1/current.json', queryParameters);
-
     final response = await http.get(uri);
-
     final data = jsonDecode(response.body);
-
     return WeatherParameters.fromJson(data);
   }
 
@@ -90,11 +87,8 @@ class WeatherService {
   Future<String> readMyLocationsFile() async {
     try {
       final file = await findLocalFile;
-      // Read the file
       final contents = await file.readAsString();
-      // List<String> list = json.decode(contents);
       print('All saved cities: ${contents}');
-      // print(list[0]);
       return contents;
     } catch (e) {
       print('error');
@@ -124,7 +118,6 @@ class WeatherService {
   }
 
   Future<List<String>> locationsAndTemps() async {
-
     List<String> locations = await locationsList();
     List<String> temps = await temperatureList(locations);
     List<String> newTemps = List.filled(locations.length, '');

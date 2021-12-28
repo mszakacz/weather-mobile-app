@@ -14,9 +14,6 @@ class _LoadingState extends State<Loading> {
   final _cityNameController = TextEditingController();
   final _weatherService = WeatherService();
 
-
-
-
   void _search() async {
     final response = await _weatherService.getWeather(_cityNameController.text);
     Map data = _weatherService.toMap(response);
@@ -34,7 +31,6 @@ class _LoadingState extends State<Loading> {
 
   @override
   Widget build(BuildContext context) {
-
 
     return Scaffold(
       backgroundColor: Colors.white,
